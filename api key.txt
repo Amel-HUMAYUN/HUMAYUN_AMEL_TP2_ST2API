@@ -1,0 +1,4 @@
+APIKey : aecfcdedd663737cb5055aabf60844f3
+
+https://openweathermap.org/img/w/01d.png
+https://api.openweathermap.org/data/2.5/weather?q=Paris&appid=aecfcdedd663737cb5055aabf60844f3
