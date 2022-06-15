@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -80,10 +80,48 @@ namespace HUMAYUN_AMEL_ST2API_TP2
                 Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(json);
                 picIcon.ImageLocation = "https://openweathermap.org/img/w/" + myDeserializedClass.Weather[0].icon + ".png";
                 Condition.Text = myDeserializedClass.Weather[0].main;
-                Sunset.Text = myDeserializedClass.Sys.sunset.ToString();
-                Details.Text = myDeserializedClass.Weather[0].description;
-                Sunrise.Text = myDeserializedClass.Sys.sunrise.ToString();
+                temp.Text = myDeserializedClass.Weather[0].description;
+                Sunset.Text = convertDateTime(myDeserializedClass.Sys.sunset).ToString();
+                Sunrise.Text = convertDateTime(myDeserializedClass.Sys.sunrise).ToString();
+                
+                // add wind
+
+                // convert in %
+                Humidity.Text = myDeserializedClass.Main.humidity.ToString();
+                
+
+                double pressure = myDeserializedClass.Main.pressure;
+                Pressure.Text = pressure.ToString();
+
+                Speed.Text = myDeserializedClass.Wind.speed.ToString();
+                
+                double temperature = ConvertKC(myDeserializedClass.Main.temp);
+                Convert.ToInt32(temperature);
+                temp.Text = temperature.ToString();
             }
+        }
+
+        DateTime convertDateTime (long millisec)
+        {
+            DateTime day = new DateTime(2022, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc).ToLocalTime();
+            day = day.AddMilliseconds(millisec).ToLocalTime();
+            return day;
+        }
+
+        public double ConvertKC(double a) // Kelvin en Celsius
+        {
+            double c = 273.15;
+            double tempe = a - c;
+            return tempe;
+        }
+
+        public int ConvertHPa(int a)
+        {
+            // 1H hPa = 1000 Pascal
+            // => x hPA = a / 1000 Pascal 
+
+            int hPa = a / 1000;
+            return hPa;
         }
 
         private void Sunrise_Click(object sender, EventArgs e)
@@ -92,6 +130,21 @@ namespace HUMAYUN_AMEL_ST2API_TP2
         }
 
         private void label1_Click_3(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click_1(object sender, EventArgs e)
         {
 
         }
